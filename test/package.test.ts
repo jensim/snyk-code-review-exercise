@@ -1,4 +1,3 @@
-import * as assert from "assert";
 import got from 'got';
 import { Server } from 'http';
 import { createApp } from '../src/app';
@@ -10,11 +9,11 @@ describe('/package/:name/:version endpoint', () => {
   beforeAll((done) => {
     server = createApp().listen(0, () => {
       const addr = server.address();
-      if (addr && typeof addr === "object") {
+      if (addr && typeof addr === 'object') {
         port = addr.port;
         done();
       } else {
-        done(new Error("Unexpected address ${addr} for server"));
+        done(new Error('Unexpected address ${addr} for server'));
       }
     });
   });
@@ -36,9 +35,32 @@ describe('/package/:name/:version endpoint', () => {
     expect(json.name).toEqual(packageName);
     expect(json.version).toEqual(packageVersion);
     expect(json.dependencies).toEqual({
-      'loose-envify': '^1.1.0',
-      'object-assign': '^4.1.1',
-      'prop-types': '^15.6.2',
+      'loose-envify': {
+        'dependecies': {
+          'js-tokens': {
+            'dependecies': {},
+            'version': '^1.0.1',
+          },
+        },
+        'version': '^1.1.0',
+      },
+      'object-assign': {
+        'dependecies': {},
+        'version': '^4.1.1',
+      },
+      'prop-types': {
+        'dependecies': {
+          'loose-envify': {
+            'dependecies': {},
+            'version': '^1.3.1',
+          },
+          'object-assign': {
+            'dependecies': {},
+            'version': '^4.1.1',
+          },
+        },
+        'version': '^15.6.2',
+      },
     });
   });
 });
