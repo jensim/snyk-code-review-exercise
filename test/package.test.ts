@@ -6,20 +6,24 @@ describe('/package/:name/:version endpoint', () => {
   let server: Server;
   let port: number;
 
-  beforeAll((done) => {
-    server = createApp().listen(0, () => {
-      const addr = server.address();
-      if (addr && typeof addr === 'object') {
-        port = addr.port;
-        done();
-      } else {
-        done(new Error('Unexpected address ${addr} for server'));
-      }
+  beforeAll(() => {
+    return new Promise(done => {
+      server = createApp().listen(0, () => {
+        const addr = server.address();
+        if (addr && typeof addr === 'object') {
+          port = addr.port;
+          done();
+        } else {
+          done(new Error('Unexpected address ${addr} for server'));
+        }
+      });
     });
   });
 
-  afterAll((done) => {
-    server.close(done);
+  afterAll(() => {
+    return new Promise(done => {
+      server.close(done);
+    });
   });
 
   it('responds', async () => {
