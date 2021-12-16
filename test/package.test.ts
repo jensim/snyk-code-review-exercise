@@ -12,7 +12,7 @@ describe('/package/:name/:version endpoint', () => {
         const addr = server.address();
         if (addr && typeof addr === 'object') {
           port = addr.port;
-          done();
+          done(null);
         } else {
           done(new Error('Unexpected address ${addr} for server'));
         }
