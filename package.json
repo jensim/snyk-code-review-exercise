@@ -9,7 +9,8 @@
   "scripts": {
     "start": "nodemon --watch src --ext .ts --exec \"$(npm bin)/ts-node ./src/main.ts\"",
     "test": "jest",
-    "lint": "eslint '{src,test}/**/*.ts'"
+     "lint": "eslint '{src,test}/**/*.ts'",
+    "lintFix": "eslint --fix '{src,test}/**/*.ts'"
   },
   "dependencies": {
     "express": "^4.17.1",
